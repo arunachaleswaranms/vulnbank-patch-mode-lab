@@ -1,0 +1,47 @@
+services:
+  dvaa:
+    image: ghcr.io/shri-the-tree/vulnbank-workshop:latest
+    build: .
+    ports:
+      - "7001:7001"
+      - "7002:7002"
+      - "7003:7003"
+      - "7004:7004"
+      - "7005:7005"
+      - "7006:7006"
+      - "7007:7007"
+      - "7008:7008"
+      - "7010:7010"
+      - "7011:7011"
+      - "7012:7012"
+      - "7013:7013"
+      - "7014:7014"
+      - "7015:7015"
+      - "7016:7016"
+      - "7020:7020"
+      - "7021:7021"
+      - "9000:9000"
+    restart: unless-stopped
+    environment:
+      # VulnBank workshop profile. participant (default): all HARDEN_L*
+      # toggles forced off regardless of what's set below -- the safety
+      # net so a stray env var can't accidentally hand someone a hardened
+      # agent. demo: presenter profile, toggles below become live.
+      - BANK_PROFILE=${BANK_PROFILE:-participant}
+      - HARDEN_L1=${HARDEN_L1:-off}
+      - HARDEN_L2=${HARDEN_L2:-off}
+      - HARDEN_L3=${HARDEN_L3:-off}
+      - HARDEN_L4=${HARDEN_L4:-off}
+      - HARDEN_L5=${HARDEN_L5:-off}
+      - AIM_ENFORCEMENT=${AIM_ENFORCEMENT:-on}
+      # Defensive "Patch Mode". off (default) keeps the original vulnerable
+      # lab; the dashboard toggle can switch it (and per-level) live at
+      # runtime. This only sets the boot-time default.
+      - PATCH_MODE=${PATCH_MODE:-off}
+      # L5 A2A HMAC auth (only enforced when L5 patch is on).
+      - A2A_SHARED_SECRET=${A2A_SHARED_SECRET:-change_me_for_local_lab}
+      - A2A_MAX_SKEW_SECONDS=${A2A_MAX_SKEW_SECONDS:-300}
+      # Each participant supplies their own Groq key at run time, e.g.:
+      #   GROQ_API_KEY=gsk_... docker compose up
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - GROQ_MODEL=${GROQ_MODEL:-}

@@ -88,6 +88,7 @@ Browser (http://localhost:9000)
 ```
 
 All 5 agents run locally inside the container. Your attacks go straight to them — no relay, no proxy, no internet after the initial key verification.
+<img width="1497" height="754" alt="Screenshot of ui" src="https://github.com/user-attachments/assets/0c254b4f-b3fc-47b2-93bc-2c5d20de8b00" />
 
 ---
 
